@@ -44,8 +44,24 @@ def is_block(i, j):
 
 
 def solve(board):
-    i = board.find(0)
+    try:
+        i = board.index(0)
+    except:
+        return board
+
+    excluded_numbers = set()
+    for j in range(81):
+        if is_row(i, j) or is_column(i, j) or is_block(i, j):
+            excluded_numbers.add(board[j])
+
+    for m in '123456789':
+        if int(m) not in excluded_numbers:
+            print int(m)
+            board[i] = int(m)
+            print board
+            return solve(board)
 
 
 if __name__ == "__main__":
+    print len(board)
     print solve(board)
